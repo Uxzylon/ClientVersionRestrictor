@@ -3,14 +3,10 @@ name: ${NAME}
 version: '${VERSION}'
 api-version: '1.16'
 author: Uxzylon
+depend: [ ViaVersion ]
 description: Restrict client's Minecraft versions using ViaVersion
 permissions:
   ClientVersionRestrictor.bypass:
     description: Bypass the client version restriction
     children:
       ClientVersionRestrictor.*: true
-  ClientVersionRestrictor.*:
-    description: Grants all other permissions
-    default: false
-    children:
-      ClientVersionRestrictor.bypass: true
