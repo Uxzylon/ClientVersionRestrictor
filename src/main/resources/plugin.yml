@@ -6,7 +6,7 @@ author: Uxzylon
 depend: [ ViaVersion ]
 description: Restrict client's Minecraft versions using ViaVersion
 permissions:
-  ClientVersionRestrictor.bypass:
+  clientversionrestrictor.bypass:
     description: Bypass the client version restriction
     children:
-      ClientVersionRestrictor.*: true
+      clientversionrestrictor.*: true
