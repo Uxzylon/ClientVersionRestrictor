@@ -6,16 +6,24 @@ import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+
+import static com.uxzylon.clientversionrestrictor.ClientVersionRestrictor.plugin;
+import static com.uxzylon.clientversionrestrictor.ClientVersionRestrictor.playersToKick;
 
 public class ClientConnectionEvent implements Listener {
+
     @EventHandler
-    public void onPlayerJoin(PlayerLoginEvent event) {
+    public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         int version = Via.getAPI().getPlayerVersion(player.getUniqueId());
+
+        plugin.getLogger().info("Player " + player.getName() + " joined with version " + version);
+
         if (version < ProtocolVersion.v1_14.getVersion() && !player.hasPermission("clientversionrestrictor.bypass")) {
-            event.setKickMessage("You are using an outdated client version. Please update to 1.14 or higher.");
-            event.setResult(PlayerLoginEvent.Result.KICK_OTHER);
+            playersToKick.add(player);
         }
     }
+
+
 }
