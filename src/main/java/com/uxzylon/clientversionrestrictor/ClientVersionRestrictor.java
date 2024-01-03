@@ -21,9 +21,9 @@ public final class ClientVersionRestrictor extends JavaPlugin {
     private void createConfig() {
         getConfig().options().copyDefaults(true);
 
-        getConfig().addDefault("kickMessage", "§cYou are using an outdated client version. Please update to 1.14 or higher.");
-        getConfig().addDefault("minVersion", "v1.14");
-        getConfig().addDefault("maxVersion", "unknown");
+        getConfig().addDefault("kickMessage", "§cYou are using an unsupported version of Minecraft!");
+        getConfig().addDefault("minVersion", 472);
+        getConfig().addDefault("maxVersion", -1);
 
         saveConfig();
         reloadConfig();

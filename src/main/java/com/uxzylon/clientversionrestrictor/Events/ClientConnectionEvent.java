@@ -17,13 +17,16 @@ public class ClientConnectionEvent implements Listener {
         Player player = event.getPlayer();
         int version = Via.getAPI().getPlayerVersion(player.getUniqueId());
 
-        plugin.getLogger().info("Player " + player.getName() + " joined with version " + version);
+        String minVersionString = plugin.getConfig().getString("minVersion");
+        int minVersion = minVersionString != null ? Integer.parseInt(minVersionString) : -1;
+        String maxVersionString = plugin.getConfig().getString("maxVersion");
+        int maxVersion = maxVersionString != null ? Integer.parseInt(maxVersionString) : -1;
 
-        if (version < ProtocolVersion.v1_14.getVersion() && !player.hasPermission("clientversionrestrictor.bypass")) {
+        // plugin.getLogger().info("Player " + player.getName() + " joined with version " + version + " (min: " + minVersion + ", max: " + maxVersion + ")");
+
+        if ((version < minVersion || maxVersion != -1 && version > maxVersion) && !player.hasPermission("clientversionrestrictor.bypass")) {
             plugin.getServer().getScheduler().runTaskLater(plugin, () ->
                     player.kickPlayer(plugin.getConfig().getString("kickMessage")), 100L);
         }
     }
-
-
 }
